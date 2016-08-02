@@ -1,14 +1,54 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>BarcodeToZipcodeTranslater</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-<form action='http://127.0.0.1:3000/result' METHOD="get">
-    <label for="code">Please Input Code:</label>
-    <input type="text" id="code" name="code"/>
-    <input type="submit" VALUE="submit"/>
-</form>
+<label for="code">Please Input Code:</label>
+<input type="text" id="code" name="code"/>
+<input type="submit" VALUE="submit" id="submit"/>
+<div id="codeDiv"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#submit").click(function () {
+            $.ajax({
+                type:"get",
+                url:"http://localhost:3000/result",
+                async:true,
+                data:"code="+$('#code').val(),
+                success:function (result) {
+                    $("#codeDiv").html(result);
+                },
+                error:function () {
+                    alert("An error occured:" + xhr.status + "" + xhr.statusText);
+                }
+            })
+        })
+    })
+</script>
+<!--<script type="text/javascript">-->
+    <!--let xmlhttp = new XMLHttpRequest();-->
+    <!--function loadXMLDoc(url) {-->
+            <!--xmlhttp.onreadystatechange = state_Change;-->
+            <!--xmlhttp.open("GET",url,true);-->
+            <!--xmlhttp.send(null);-->
+    <!--}-->
+    <!--function state_Change() {-->
+        <!--if(xmlhttp.readyState === 4&&xmlhttp.status === 200){-->
+            <!--document.getElementById('AjaxDiv').innerHTML = xmlhttp.responseText;-->
+        <!--}else {-->
+            <!--alert("Promble retrieving data:" + xmlhttp.statusText);-->
+        <!--}-->
+        <!---->
+    <!--}-->
+<!--</script>-->
+
+<!--<form action='http://127.0.0.1:3000/result' METHOD="get">-->
+    <!--<label for="code">Please Input Code:</label>-->
+    <!--<input type="text" id="code" name="code"/>-->
+    <!--<input type="submit" VALUE="submit"/>-->
+<!--</form>-->
 </body>
 </html>
