@@ -9,12 +9,13 @@ app.get('/', function (req, res) {
     res.sendfile(path.resolve('../webPage/BarcodeToZipcode.html'));
 });
 
-// app.use(bodyParse.json());
-// app.use(bodyParse.urlencoded({extended:true}));
+app.use(bodyParse.json());
+app.use(bodyParse.urlencoded({extended:true}));
 
-app.get('/result',function (req,res) {
-    let barcode = new ZipcodeToBarcode().execute(req.query.code);
-    let zipcode = new BarcodeToZipcode().execute(req.query.code);
+app.post('/result',function (req,res) {
+    console.log(req.body.code);
+    let barcode = new ZipcodeToBarcode().execute(req.body.code);
+    let zipcode = new BarcodeToZipcode().execute(req.body.code);
     if(barcode.type){
         res.send("Barcode: " + barcode.text);
     }else if(zipcode.type){
